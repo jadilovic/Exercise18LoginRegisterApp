@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class PersonImplementation implements PersonInterface{
 
@@ -58,8 +59,45 @@ public class PersonImplementation implements PersonInterface{
 
 	@Override
 	public void updatePerson(Person person) throws SQLException {
-		// TODO Auto-generated method stub
 		
+		if(person != null){
+		
+			String sqlQuery = "UPDATE person SET password = ?, name = ?, lastName = ?, "
+				+ "work = ?, city = ?, age = ?, email = ? WHERE id = ?";
+		
+		Scanner input = new Scanner(System.in);
+		
+	System.out.println("Enter new password: (old password is " + person.getPassword() + ")");
+		String pass = input.nextLine();
+	System.out.println("Enter new name: (old name is " + person.getName() + ")");
+		String name = input.nextLine();
+	System.out.println("Enter new last name: (old last name is " + person.getLastName() + ")");
+		String lastName = input.nextLine();
+	System.out.println("Enter new work: (old work is " + person.getWork() + ")");
+		String work = input.nextLine();
+	System.out.println("Enter new city: (old city is " + person.getCity() + ")");
+		String city = input.nextLine();
+	System.out.println("Enter new age: (old age is " + person.getAge() + ")");
+		String age = input.nextLine();
+	System.out.println("Enter new email: (old email is " + person.getEmail() + ")");
+		String email = input.nextLine();
+		
+		try(PreparedStatement pstat = conn.prepareStatement(sqlQuery);){
+					
+					pstat.setString(1, pass);
+					pstat.setString(2, name);
+					pstat.setString(3, lastName);
+					pstat.setString(4, work);
+					pstat.setString(5, city);
+					pstat.setString(6, age);
+					pstat.setString(7, email);
+					pstat.setInt(8, person.getId());
+
+					pstat.executeUpdate();
+					
+					System.out.println("Profile of the person with id " + person.getId() + " was updated\n");
+			}
+		}
 	}
 
 	@Override

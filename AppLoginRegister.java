@@ -38,21 +38,30 @@ public class AppLoginRegister {
 			
 			if(loggedPerson != null){
 				boolean loggedIn = true;
+				System.out.println("You are logged in");
+					
 				while(loggedIn){
-				System.out.println("To update personal information enter '5': "
+						System.out.println("To update personal information enter '5': "
 						+ "\nTo delete all personal information enter '6': "
 						+ "\nTo log out enter '7': ");
-				option = input.nextInt();
+						option = input.nextInt();
 				
 					switch (option) {
+					
 					case 5: update(loggedPerson);
 					break;
+					
 					case 6: delete(loggedPerson);
-					System.out.println("You will be automatically logged out as your profile has been deleted");
+					System.out.println("You will be automatically logged out as your profile has been deleted\n");
 					loggedIn = false;
+					loggedPerson = null;
 					break;
+					
 					case 7: loggedIn = false;
+					loggedPerson = null;
+					System.out.println("Your are logged out.\n");
 					break;
+					
 					default: System.out.println("Entered wrong option. Please try again");
 					break;
 					}
@@ -65,20 +74,20 @@ public class AppLoginRegister {
 		profileApp.deletePerson(loggedPerson);
 	}
 
-	private static void update(Person loggedPerson2) {
-		// TODO Auto-generated method stub
-		
+	private static void update(Person loggedPerson) throws SQLException {
+		profileApp.updatePerson(loggedPerson);
 	}
 
 	private static void printAll() throws SQLException {
 		ArrayList<Person> personsList = profileApp.getAllPersons();
+		System.out.println("All registered user profiles:");
 		for(Person person: personsList)
 			profileApp.printPerson(person);
+		System.out.println();
 	}
 
-	private static void register() {
-		// TODO Auto-generated method stub
-		
+	private static void register() throws SQLException {
+		profileApp.addPerson();
 	}
 
 	private static void logIn() throws SQLException {
@@ -87,7 +96,7 @@ public class AppLoginRegister {
 		int id = input.nextInt();
 		loggedPerson = profileApp.getPerson(id);
 		if(loggedPerson == null)
-			System.out.println("Entered ID does not exist. Please try agian");
+			System.out.println("Entered ID does not exist. Please try agian\n");
 		else{
 			System.out.println("Current values in the database:");
 		profileApp.printPerson(loggedPerson);

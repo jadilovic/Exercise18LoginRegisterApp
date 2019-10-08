@@ -4,23 +4,23 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnManager {
+public class ConnManDBProfile {
 
-	private static ConnManager instance = null;
+	private static ConnManDBProfile instance = null;
 	
 	private static final String USER_NAME = "root";
 	private static final String PASSWORD = "password";
-	private static final String CONN_DB = "jdbc:mysql://localhost/";
+	private static final String CONN_DB = "jdbc:mysql://localhost/profile";
 	
 	private Connection conn = null;
 	
-	public ConnManager(){
+	public ConnManDBProfile(){
 		
 	}
 	
-	public static ConnManager getInstance(){
+	public static ConnManDBProfile getInstance(){
 		if(instance == null)
-			instance = new ConnManager();
+			instance = new ConnManDBProfile();
 		return instance;
 	}
 	

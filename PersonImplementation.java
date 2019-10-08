@@ -12,6 +12,7 @@ public class PersonImplementation implements PersonInterface{
 
 	// Connecting to the profile database
 	Connection conn = ConnManDBProfile.getInstance().getConnection();
+	Scanner input = new Scanner(System.in);
 	
 	@Override
 	public ArrayList<Person> getAllPersons() throws SQLException {
@@ -65,8 +66,6 @@ public class PersonImplementation implements PersonInterface{
 			String sqlQuery = "UPDATE person SET password = ?, name = ?, lastName = ?, "
 				+ "work = ?, city = ?, age = ?, email = ? WHERE id = ?";
 		
-		Scanner input = new Scanner(System.in);
-		
 	System.out.println("Enter new password: (old password is " + person.getPassword() + ")");
 		String pass = input.nextLine();
 	System.out.println("Enter new name: (old name is " + person.getName() + ")");
@@ -113,8 +112,38 @@ public class PersonImplementation implements PersonInterface{
 
 	@Override
 	public void addPerson() throws SQLException {
-		// TODO Auto-generated method stub
+		String sqlQuery = "INSERT INTO person (id, password, name, lastName, "
+				+ "work, city, age, email) VALUES (null, ?, ?, ?, ?, ?, ?, ?)";
 		
+	System.out.println("Enter password: ");
+		String pass = input.nextLine();
+	System.out.println("Enter name: ");
+		String name = input.nextLine();
+	System.out.println("Enter last name: ");
+		String lastName = input.nextLine();
+	System.out.println("Enter work: ");
+		String work = input.nextLine();
+	System.out.println("Enter city: ");
+		String city = input.nextLine();
+	System.out.println("Enter age: ");
+		String age = input.nextLine();
+	System.out.println("Enter email: ");
+		String email = input.nextLine();
+		
+		try(PreparedStatement pstat = conn.prepareStatement(sqlQuery);){
+					
+					pstat.setString(1, pass);
+					pstat.setString(2, name);
+					pstat.setString(3, lastName);
+					pstat.setString(4, work);
+					pstat.setString(5, city);
+					pstat.setString(6, age);
+					pstat.setString(7, email);
+
+					pstat.executeUpdate();
+					
+					System.out.println("Profile of the new user person was created\n");
+			}
 	}
 
 	@Override
@@ -127,5 +156,5 @@ public class PersonImplementation implements PersonInterface{
 			System.out.println("No date for the given person object");
 		}
 	}
-
+	
 }

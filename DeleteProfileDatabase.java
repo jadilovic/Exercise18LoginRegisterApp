@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DeleteOwnDatabase {
+public class DeleteProfileDatabase {
 
 	private static final String USER_NAME = "root";
 	private static final String PASSWORD = "password";

@@ -11,7 +11,7 @@ public interface PersonInterface {
 	public ArrayList<Person> getAllPersons() throws SQLException;
 
 	// method to get a specific person
-	public Person getPerson(int id) throws SQLException;
+	public Person getPerson(int id, String password) throws SQLException;
 
 	// method to update a specific person
 	public void updatePerson(Person person) throws SQLException;

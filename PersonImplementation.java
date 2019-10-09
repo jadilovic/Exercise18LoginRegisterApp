@@ -40,13 +40,14 @@ public class PersonImplementation implements PersonInterface{
 	}
 
 	@Override
-	public Person getPerson(int id) throws SQLException {
+	public Person getPerson(int id, String password) throws SQLException {
 		Person person = null;
-		String sqlQuery = "SELECT * FROM person WHERE id = ?";
+		String sqlQuery = "SELECT * FROM person WHERE id = ? AND password = ?";
 		ResultSet rs = null;
 		
 		try (PreparedStatement prepStat = conn.prepareStatement(sqlQuery);){
 			prepStat.setInt(1, id);
+			prepStat.setString(2, password);
 			rs = prepStat.executeQuery();
 			
 			while(rs.next()){

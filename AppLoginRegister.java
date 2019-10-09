@@ -9,6 +9,7 @@ public class AppLoginRegister {
 	
 	static PersonImplementation profileApp = new PersonImplementation();
 	static Person loggedPerson = null;
+	static Scanner input = new Scanner(System.in);
 
 	public static void main(String[] args) throws SQLException {
 		
@@ -19,7 +20,7 @@ public class AppLoginRegister {
 					+ "\nTo register as the new user please choose '2': "
 					+ "\nTo see all registered users please choose '3': "
 					+ "\nTo exit the App please choose '4': ");
-			Scanner input = new Scanner(System.in);
+			
 			int option = input.nextInt();
 			
 			switch (option) {
@@ -91,12 +92,11 @@ public class AppLoginRegister {
 	}
 
 	private static void logIn() throws SQLException {
-		Scanner input = new Scanner(System.in);
-		System.out.println("Please enter your ID number");
-		int id = input.nextInt();
-		loggedPerson = profileApp.getPerson(id);
+		int id = enterId();
+		String password = enterPassword();
+		loggedPerson = profileApp.getPerson(id, password);
 		if(loggedPerson == null)
-			System.out.println("Entered ID does not exist. Please try agian\n");
+			System.out.println("Entered ID does not exist or you have entered wrong password. Please try agian\n");
 		else{
 			System.out.println("Current values in the database:");
 		profileApp.printPerson(loggedPerson);
@@ -104,8 +104,13 @@ public class AppLoginRegister {
 		}
 	}
 
-	private static boolean validId(int id) {
-		return false;	
+	private static int enterId() {
+		System.out.println("Please enter your ID number");
+		return input.nextInt();
 	}
 
+	private static String enterPassword() {
+		System.out.println("Please enter your password");
+		return input.next();
+	}
 }
